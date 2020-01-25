@@ -48,38 +48,24 @@ router.get('/', (request, response, next) =>{
 
 router.get('/:id', async function(request, response) {
     var data = {};
-    var success = false;
     var id = request.params.id;
-    
-    var body = request.body;
-    var users = await User.find();
-
-    var obj = User.verifyUser(users, body);
-
-    if(obj.isUser) {
-        success = true;
-        data.user = await User.findById(id).then( (res)=>{
+  
+    await User.findById(id).then( (res)=>{
             if(!res) {
                 success = false;
-                data.message = "User not found"
-                return null;
+                data = "User not found"
+                response.status(400).json(data);
             }
             else {
-                return res;
+                data = res;
+                response.status(200).json(data);
             }
         })
         .catch( (err) =>{
             console.log(err);
-            success = false;
-        });
-        if(success) {
-            response.status(200).json();
-        }
-        else {
             response.status(400).json() 
-        }
-    }
-})
+        });
+});
 
 
 router.delete('/:id/:token', async function (request, response, next ){
@@ -148,8 +134,7 @@ router.get('/verifyUser/:token', async function(request, response) {
 
     var obj = User.verifyOfUser(users, token);
     response.status(200).json(obj);
-
-    // response.status(200).json({token});
+ 
 })
  //                                                                K i r  i  sh
 

@@ -8,7 +8,6 @@ const adminSchema = mongoose.Schema({
 
 adminSchema.statics.hashofPassword = function(pass) {
     let password = {password: pass};
-
     let hashpass = jwt.sign(password, 'pro');
 
     return hashpass;

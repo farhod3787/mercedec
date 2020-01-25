@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const adminRouter = require('./routes/admin');
-const userRouter = require('./routes/users')
+const userRouter = require('./routes/users');
+const productRouter = require('./routes/products');
 
 const cors = require("cors");
 const app = express();
@@ -12,7 +13,7 @@ const app = express();
 app.use(cors());
 
 
-// mongoose.connect('mongodb+srv://farhod:7Q8SfcHx.F2J.HG@cluster0-uf7cc.mongodb.net/online-pharmacy?retryWrites=true', { useNewUrlParser: true })
+// mongoose.connect('mongodb+srv://farhod:7Q8SfcHx.F2J.HG@cluster0-uf7cc.mongodb.net/mercedec?retryWrites=true', { useNewUrlParser: true })
 //     .then(() => {
 //         console.log('MongoDB connected.');
 //     })
@@ -55,8 +56,9 @@ app.use((req, res, next) => {
 
 //                                                          Admin
 
-app.use('/api/admin/', adminRouter);
+app.use('/api/admin', adminRouter);
 app.use('/api/users/', userRouter);
+app.use('/api/products/', productRouter);
 
 // app.get('/*', (req, res) => {
 //     res.sendFile(path.join(__dirname, '../dist/online-pharmacy', 'index.html'))

@@ -50,7 +50,7 @@ router.get('/:id', async function(request, response) {
 
     if(obj.isAdmin) {
         success = true;
-        data.user = await User.findById(id).then( (res)=>{
+        data = await Admin.findById(id).then( (res)=>{
             if(!res) {
                 success = false;
                 data.message = "User not found"
@@ -65,7 +65,7 @@ router.get('/:id', async function(request, response) {
             success = false;
         });
         if(success) {
-            response.status(200).json();
+            response.status(200).json(data);
         }
         else {
             response.status(400).json() 
