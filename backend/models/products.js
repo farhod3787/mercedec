@@ -4,6 +4,7 @@ const productSchema = mongoose.Schema({
     name: {type: String},
     description: {type: String},
     image: {type: String},
+    image_original_name : {type: String},
     category_id: {type: String},
 
     quantity: {type: Number},  //miqdori

@@ -6,7 +6,9 @@ const mongoose = require('mongoose');
 const adminRouter = require('./routes/admin');
 const userRouter = require('./routes/users');
 const productRouter = require('./routes/products');
-
+const categoryRouter = require('./routes/category');
+const contactRouter = require('./routes/contact');
+const orderRouter = require('./routes/orders');
 const cors = require("cors");
 const app = express();
 
@@ -53,12 +55,12 @@ app.use((req, res, next) => {
     next()
 });
 
-
-//                                                          Admin
-
 app.use('/api/admin', adminRouter);
 app.use('/api/users/', userRouter);
 app.use('/api/products/', productRouter);
+app.use('/api/category/', categoryRouter);
+app.use('/api/contact/', contactRouter);
+app.use('/api/order/', orderRouter);
 
 // app.get('/*', (req, res) => {
 //     res.sendFile(path.join(__dirname, '../dist/online-pharmacy', 'index.html'))

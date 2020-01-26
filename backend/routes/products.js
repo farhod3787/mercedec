@@ -36,13 +36,15 @@ router.post('/:token', multer({ storage: storage }).single('image'), async(reque
 
     var obj = Admin.verifyOfAdmin(admin, token);
 
-    //  var image = 'localhost:5000' + '/images/' + file.filename;
-    var image = file.filename;
+     var image = 'localhost:5000' + '/images/' + file.filename;
+    // var image = file.filename;
+    var image_original_name = file.filename;
 
     var product = {
         name: body.name,
         description: body.description,
-        image:  image, // file.filename,    //image file
+        image:  image,
+        image_original_name : image_original_name, // file.filename,    //image file
         category_id: body.category_id,
         quantity: body.quantity,  //miqdori Number
         brand: body.brand,
@@ -116,7 +118,7 @@ router.delete('/deleteProduct/:id/:token', async function(request, response, nex
 
         
             await Product.findById(id).then( (res) =>{
-               var image= res.image;
+               var image= res.image_original_name;
                 fs.unlink('backend/images/' + image, function (err) {
                     if (err) {
                     console.log('File not deleted');}
@@ -149,7 +151,7 @@ router.patch('/updateProduct/:id/:token', multer({ storage: storage }).single('i
     var token = request.params.token;
     var admin = await Admin.find();
 
-    var obj = Admin.verifyOfAdmin(users, token);
+    var obj = Admin.verifyOfAdmin(admin, token);
     if (obj.isModerator) {
         await Product.findByIdAndUpdate(id, { $set: body }, { new: true }).then((res) => {
             if (res) {
