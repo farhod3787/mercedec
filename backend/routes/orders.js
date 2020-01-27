@@ -34,10 +34,11 @@ router.post('/:token' , async(request, response, next) => {
     var users = await Users.find();
  
     var obj = Users.verifyOfUser(users, token);
+
     var order = {
-        user_id: body.user_id,
+        user_id: obj.userName,
         address: body.address,
-        date: body.date,
+        date: new Date(),
         status: "Waiting",
         products: body.products,
         quantity: body.quantity,
@@ -67,12 +68,11 @@ router.get('/getall/:token', async(request, response, next) => {
 
     var obj = await Admin.verifyOfAdmin(admins, token);
 
-    if(obj.isAdmin) {
+    if(obj.isModerator) {
     let orders = await Orders.find();
     // if (pharms.logo) {
     //     pharms.logo = "/files/" + pharms.logo;
     // }
-
     response.status(200).json(orders)
     
 }
@@ -94,7 +94,7 @@ router.get('/getOrder/:id/:token', async function(request, response, next) {
 
     var id = request.params.id;
     var token = request.params.token;
-        var admins = Admin.find();
+        var admins = await Admin.find();
         var obj = Admin.verifyOfAdmin(admins, token);
 
         if(obj.isModerator) {

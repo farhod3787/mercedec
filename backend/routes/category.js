@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/:token', async function (request, response, next) {
    var body = request.body;
     var token = request.params.token;
-    var admins = Admin.find();
+    var admins = await  Admin.find();
 
     var obj = await Admin.verifyOfAdmin(admins, token);
 
@@ -89,7 +89,7 @@ router.patch('/updateCategory/:id/:token' , async function(request, response, ne
     var id = request.params.id;
     var body = request.body;
 
-    body.logo = request.file.filename;
+    // body.logo = request.file.filename;
 
     var token = request.params.token;
     var admin = await Admin.find();

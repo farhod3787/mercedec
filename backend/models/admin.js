@@ -64,11 +64,15 @@ adminSchema.statics.verifyAdmin = function(users, body) {
 
 //                                                      T e k s  h i r i  s h
 
-adminSchema.statics.verifyOfAdmin = function(users, token) {
-    var object = { isAdmin: false, isModerator: false, userId: undefined};
-    var distoken = undefined; 
+adminSchema.statics.verifyOfAdmin2 = function(admins, token) {
+     
+};
 
-    users.forEach((user) => {
+adminSchema.statics.verifyOfAdmin = function(admins, token) {
+    var object = {isAdmin : false, isModerator : false,  adminId: undefined};
+    var distoken = undefined; 
+ 
+    admins.forEach((admin) => {
         try{
             distoken = jwt.verify(token, 'pro');
         }
@@ -76,15 +80,14 @@ adminSchema.statics.verifyOfAdmin = function(users, token) {
 
         }
         if (distoken) {
-            if(user.login == distoken.login && user.password == distoken.password ) {
+            if(admin.login == distoken.login && admin.password == distoken.password ) {
                     object.isModerator = true;
-                    object.token = jwt.sign({login: user.login, password: user.password}, 'pro');
-                    object.userId = user._id;
-                    object.userName = user.login;
-
-                        if(user == users[0]){
-                            object.isAdmin = true;
-                        } 
+                    object.token = jwt.sign({login: admin.login, password: admin.password}, 'pro');
+                    object.adminId = admin._id;
+                    object.adminName = admin.login;
+                    if(admin == admins[0]){
+                        object.isAdmin = true;
+                    } 
             }
         }
         else {

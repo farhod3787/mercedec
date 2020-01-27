@@ -1,6 +1,6 @@
 const express = require('express');
 const Contact = require('../models/contact');
-
+const Admin = require('../models/admin');
 const router = express.Router();
 
  //                                                               R e g i  s t r a t s i o n
@@ -10,8 +10,8 @@ router.post('/', async function (request, response, next) {
     let contact = {
         name : body.name,
         number: body.number,
-        messaeg: body.message,
-        date: body.date
+        message: body.message,
+        date: new Date()
     }
     const contact_new = new Contact(contact);
 

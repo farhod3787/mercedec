@@ -52,7 +52,7 @@ router.post('/:token', multer({ storage: storage }).single('image'), async(reque
         configuration: body.configuration,
         price: body.price,   //number
         sale: body.sale,     // sale
-        date: body.date
+        date: new Date()
     }
     var new_product = new Product(product);
 
