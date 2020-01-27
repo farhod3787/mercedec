@@ -60,5 +60,8 @@ server.on("error", onError);
 server.on("listening", onListening);
 
 // require("./bot/index")
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 server.listen(port, () => { console.log("Running...") });
